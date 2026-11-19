@@ -38,4 +38,5 @@ export function initAuth(onSubmit) {
 
         onSubmit(nickname);
     });
+    
 } 

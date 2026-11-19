@@ -157,5 +157,4 @@ function init() {
   initMessageForm();
 }
 
-
 document.addEventListener('DOMContentLoaded', init);

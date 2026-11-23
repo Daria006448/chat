@@ -40,19 +40,21 @@ function handleMessage(event) {
   }
 
   if (data.type === 'send') {
-    renderMessage(
-      {
-        user: {
-          id: currentUserId,
-          name: currentNickname,
-        },
-        message: data.message,
-      },
-      currentUserId
-    );
+  const author = data.user ?? {
+    id: 'unknown',
+    name: 'Неизвестный пользователь',
+  };
 
-    return;
-  }
+  renderMessage(
+    {
+      user: author,
+      message: data.message,
+    },
+    currentUserId
+  );
+
+  return;
+}
 
   console.warn('Неизвестный тип сообщения:', data.type);
 }
@@ -109,6 +111,7 @@ async function registerUser(nickname) {
 }
 
 
+
 function initMessageForm() {
   const messageForm = document.querySelector('#message-form');
   const messageInput = document.querySelector('#message-input');
@@ -125,6 +128,10 @@ function initMessageForm() {
     const sent = sendMessage(socket, {
       type: 'send',
       message,
+      user: {
+        id: currentUserId,
+        name: currentNickname
+      }
     });
 
     if (sent) {
